@@ -1,0 +1,14 @@
+# build outputs
+__pycache__/
+*.pyc
+java/target/
+csharp/**/bin/
+csharp/**/obj/
+go/labshop
+go/labshop.exe
+out.txt
+
+# editors
+.idea/
+.vs/
+*.iml
