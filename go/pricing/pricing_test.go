@@ -27,6 +27,15 @@ func TestPriceOrder_PercentCoupon(t *testing.T) {
 	}
 }
 
+func TestShipping_FreeFromOneMillion(t *testing.T) {
+	if got := ShippingFor(999_990); got != 40_000 {
+		t.Errorf("ShippingFor(999990) = %d, want 40000", got)
+	}
+	if got := ShippingFor(1_000_000); got != 0 {
+		t.Errorf("ShippingFor(1000000) = %d, want 0", got)
+	}
+}
+
 func TestTax_NinePercent(t *testing.T) {
 	if got := TaxFor(1_000); got != 90 {
 		t.Errorf("TaxFor(1000) = %d, want 90", got)

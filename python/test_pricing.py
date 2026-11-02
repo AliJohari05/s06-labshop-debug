@@ -1,6 +1,6 @@
 import unittest
 
-from pricing import Item, Order, price_order, tax_for
+from pricing import Item, Order, price_order, shipping_for, tax_for
 
 
 class PriceOrderTest(unittest.TestCase):
@@ -24,6 +24,12 @@ class PriceOrderTest(unittest.TestCase):
         bill = price_order(order)
         self.assertEqual(bill.discount, 20_000)
         self.assertEqual(bill.total, 236_200)
+
+
+class ShippingTest(unittest.TestCase):
+    def test_free_shipping_from_one_million(self):
+        self.assertEqual(shipping_for(999_990), 40_000)
+        self.assertEqual(shipping_for(1_000_000), 0)
 
 
 class TaxTest(unittest.TestCase):

@@ -31,4 +31,11 @@ public class PricingTests
         Assert.Equal(20_000, bill.Discount);
         Assert.Equal(236_200, bill.Total);
     }
+
+    [Fact]
+    public void Free_shipping_from_one_million()
+    {
+        Assert.Equal(40_000, Pricing.ShippingFor(999_990));
+        Assert.Equal(0, Pricing.ShippingFor(1_000_000));
+    }
 }

@@ -31,4 +31,10 @@ class PricingTest {
         assertEquals(20_000, bill.discount());
         assertEquals(236_200, bill.total());
     }
+
+    @Test
+    void freeShippingFromOneMillion() {
+        assertEquals(40_000, Pricing.shippingFor(999_990));
+        assertEquals(0, Pricing.shippingFor(1_000_000));
+    }
 }
