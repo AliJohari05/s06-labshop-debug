@@ -3,6 +3,8 @@ namespace LabShop;
 // Prints the LabShop daily report: dotnet run --project LabShop -- ../data/orders.csv
 public static class Report
 {
+    private const string Header = "order  customer     subtotal  discount       tax  shipping       total";
+
     public static int Main(string[] args)
     {
         if (args.Length != 1)
@@ -12,7 +14,7 @@ public static class Report
         }
         var orders = ReadOrders(args[0]);
         Console.WriteLine("LabShop daily report");
-        Console.WriteLine("order  customer     subtotal  discount       tax  shipping       total");
+        Console.WriteLine(Header);
         var invalid = 0;
         foreach (var order in orders)
         {

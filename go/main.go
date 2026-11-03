@@ -13,6 +13,8 @@ import (
 	"labshop/pricing"
 )
 
+const header = "order  customer     subtotal  discount       tax  shipping       total"
+
 func main() {
 	if len(os.Args) != 2 {
 		fmt.Fprintln(os.Stderr, "usage: go run . <orders.csv>")
@@ -24,7 +26,7 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println("LabShop daily report")
-	fmt.Println("order  customer     subtotal  discount       tax  shipping       total")
+	fmt.Println(header)
 	invalid := 0
 	for _, o := range orders {
 		b := pricing.PriceOrder(o)

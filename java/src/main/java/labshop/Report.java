@@ -10,6 +10,8 @@ import java.util.Locale;
 
 /** Prints the LabShop daily report: java -cp target/classes labshop.Report ../data/orders.csv */
 public class Report {
+    static final String HEADER = "order  customer     subtotal  discount       tax  shipping       total";
+
     public static void main(String[] args) throws IOException {
         if (args.length != 1) {
             System.err.println("usage: labshop.Report <orders.csv>");
@@ -17,7 +19,7 @@ public class Report {
         }
         List<Order> orders = readOrders(Path.of(args[0]));
         System.out.println("LabShop daily report");
-        System.out.println("order  customer     subtotal  discount       tax  shipping       total");
+        System.out.println(HEADER);
         int invalid = 0;
         for (Order order : orders) {
             Bill bill = Pricing.priceOrder(order);

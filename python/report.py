@@ -6,6 +6,8 @@ import sys
 
 from pricing import Item, Order, find_coupon, price_order
 
+HEADER = "order  customer     subtotal  discount       tax  shipping       total"
+
 
 def read_orders(path):
     orders = []
@@ -31,7 +33,7 @@ def grand_total(orders):
 def main(path):
     orders = read_orders(path)
     print("LabShop daily report")
-    print("order  customer     subtotal  discount       tax  shipping       total")
+    print(HEADER)
     invalid = 0
     for order in orders:
         bill = price_order(order)
