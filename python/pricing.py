@@ -3,6 +3,9 @@ from dataclasses import dataclass, field
 
 BULK_MIN_QTY = 10
 BULK_PERCENT = 10
+TAX_PERCENT = 9
+SHIPPING_FEE = 40_000
+FREE_SHIPPING_FROM = 1_000_000
 
 
 @dataclass
@@ -66,7 +69,7 @@ def bulk_discount(items):
 
 
 def coupon_discount(order, amount):
-    if not order.coupon_code:
+    if order.coupon_code == "":
         return 0
     coupon = find_coupon(order.coupon_code)
     if coupon.kind == "fixed":
@@ -85,11 +88,11 @@ def apply_percent(items, percent):
 
 
 def tax_for(amount):
-    # 9% VAT, rounded to the nearest toman
-    return (amount * 9 + 50) // 100
+    # VAT, rounded to the nearest toman
+    return amount * TAX_PERCENT // 100
 
 
 def shipping_for(amount):
-    if amount >= 1_000_000:
+    if amount >= FREE_SHIPPING_FROM:
         return 0
-    return 40_000
+    return SHIPPING_FEE

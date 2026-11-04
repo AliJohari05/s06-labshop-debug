@@ -5,6 +5,9 @@ public static class Pricing
 {
     public const long BulkMinQty = 10;
     public const long BulkPercent = 10;
+    public const long TaxPercent = 9;
+    public const long ShippingFee = 40_000;
+    public const long FreeShippingFrom = 1_000_000;
 
     private static readonly Dictionary<string, Coupon> Coupons = new()
     {
@@ -46,7 +49,7 @@ public static class Pricing
 
     public static long CouponDiscount(Order order, long amount)
     {
-        if (string.IsNullOrEmpty(order.CouponCode))
+        if (order.CouponCode == "")
         {
             return 0;
         }
@@ -71,15 +74,15 @@ public static class Pricing
         return discount;
     }
 
-    // 9% VAT, rounded to the nearest toman
-    public static long TaxFor(long amount) => (amount * 9 + 50) / 100;
+    // VAT, rounded to the nearest toman
+    public static long TaxFor(long amount) => amount * TaxPercent / 100;
 
     public static long ShippingFor(long amount)
     {
-        if (amount >= 1_000_000)
+        if (amount >= FreeShippingFrom)
         {
             return 0;
         }
-        return 40_000;
+        return ShippingFee;
     }
 }

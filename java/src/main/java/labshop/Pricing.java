@@ -7,6 +7,9 @@ import java.util.Map;
 public final class Pricing {
     static final long BULK_MIN_QTY = 10;
     static final long BULK_PERCENT = 10;
+    static final long TAX_PERCENT = 9;
+    static final long SHIPPING_FEE = 40_000;
+    static final long FREE_SHIPPING_FROM = 1_000_000;
 
     private static final Map<String, Coupon> COUPONS = Map.of(
             "OFF10", new Coupon("percent", 10),
@@ -66,15 +69,15 @@ public final class Pricing {
         return discount;
     }
 
-    // 9% VAT, rounded to the nearest toman
+    // VAT, rounded to the nearest toman
     public static long taxFor(long amount) {
-        return (amount * 9 + 50) / 100;
+        return amount * TAX_PERCENT / 100;
     }
 
     public static long shippingFor(long amount) {
-        if (amount >= 1_000_000) {
+        if (amount >= FREE_SHIPPING_FROM) {
             return 0;
         }
-        return 40_000;
+        return SHIPPING_FEE;
     }
 }

@@ -2,8 +2,11 @@
 package pricing
 
 const (
-	BulkMinQty  = 10
-	BulkPercent = 10
+	BulkMinQty       = 10
+	BulkPercent      = 10
+	TaxPercent       = 9
+	ShippingFee      = 40_000
+	FreeShippingFrom = 1_000_000
 )
 
 type Item struct {
@@ -88,14 +91,14 @@ func applyPercent(items []Item, percent int64) int64 {
 	return discount
 }
 
-// TaxFor returns the 9% VAT, rounded to the nearest toman.
+// TaxFor returns the VAT, rounded to the nearest toman.
 func TaxFor(amount int64) int64 {
-	return (amount*9 + 50) / 100
+	return amount * TaxPercent / 100
 }
 
 func ShippingFor(amount int64) int64 {
-	if amount >= 1_000_000 {
+	if amount >= FreeShippingFrom {
 		return 0
 	}
-	return 40_000
+	return ShippingFee
 }
