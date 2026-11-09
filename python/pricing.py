@@ -1,5 +1,6 @@
 """Pricing rules for LabShop orders. All amounts are in toman."""
 from dataclasses import dataclass, field
+from math import ceil
 
 BULK_MIN_QTY = 10
 BULK_PERCENT = 10
@@ -96,8 +97,7 @@ def apply_percent(items, percent):
 
 def tax_for(amount):
     # VAT, rounded to the nearest toman
-    return amount * TAX_PERCENT // 100
-
+    return ceil(amount * TAX_PERCENT / 100)
 
 def shipping_for(amount):
     if amount >= FREE_SHIPPING_FROM:
