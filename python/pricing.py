@@ -62,9 +62,14 @@ def price_order(order):
 def bulk_discount(items):
     # 10% off every line that has BULK_MIN_QTY units or more
     discount = 0
+    dictBuyedItems = {}
     for item in items:
         if item.qty >= BULK_MIN_QTY:
             discount += item.unit_price * item.qty * BULK_PERCENT // 100
+        dictBuyedItems[item.sku] = dictBuyedItems.get(item.sku, 0) + item.qty
+    for sku, qty in dictBuyedItems.items():
+        if qty >= BULK_MIN_QTY:
+            discount += items[0].unit_price * qty * BULK_PERCENT // 100
     return discount
 
 
